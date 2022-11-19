@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="send_sms">Wyślij wiadomość</string>
+    <string name="store">Sklep</string>
+    <string name="order">Koszyk</string>
+    <string name="about">O mnie</string>
+    <string name="phone_number">Numer telefonu</string>
+    <string name="send_message">Wyślij wiadomość</string>
+    <string name="amount">ILOŚĆ</string>
+    <string name="cena_23_000z">Cena: 23 000zł</string>
+    <string name="cena_900z">Cena: 900zł</string>
+    <string name="cena_1_400z">Cena: 1 400zł</string>
+    <string name="cena_300z">Cena: 300zł</string>
+</resources>

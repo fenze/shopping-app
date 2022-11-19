@@ -1,0 +1,21 @@
+<resources>
+    <string name="send_sms">Send sms</string>
+    <string name="store">Store</string>
+    <string name="order">Order</string>
+    <string name="about">About</string>
+    <string name="phone_number">Phone number</string>
+    <string name="send_message">Send Message</string>
+    <string name="shopping" translatable="false">Shopping</string>
+    <string name="fenze" translatable="false">\@fenze</string>
+    <string name="mac" translatable="false">MAC</string>
+    <string name="amount">AMOUNT</string>
+    <string name="magic_mouse" translatable="false">Magic mouse</string>
+    <string name="mac_pro" translatable="false">mac pro</string>
+    <string name="magic_keyboard" translatable="false">Magic keyboard</string>
+    <string name="webcam" translatable="false">WebCam</string>
+    <string name="mac_price" translatable="false">23.000</string>
+    <string name="cena_23_000z">Price: 23 000zł</string>
+    <string name="cena_900z">Price: 900zł</string>
+    <string name="cena_1_400z">Price: 1 400zł</string>
+    <string name="cena_300z">Price: 300zł</string>
+</resources>
