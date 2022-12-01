@@ -18,11 +18,11 @@ public class OrderDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE IF NOT EXISTS " + "ORDERS" + "("
-            + cells[0] + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-            + cells[1] + " TEXT NOT NULL,"
-            + cells[2] + " TEXT NOT NULL,"
-            + cells[3] + " INTEGER NOT NULL,"
-            + cells[4] + " TEXT NOT NULL)"
+                + cells[0] + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + cells[1] + " TEXT,"
+                + cells[2] + " TEXT,"
+                + cells[3] + " INTEGER,"
+                + cells[4] + " TEXT)"
         );
     }
 

@@ -3,7 +3,9 @@ package dev.fenze.school;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.util.Log;
@@ -12,9 +14,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 public class Main extends AppCompatActivity
@@ -24,6 +30,7 @@ public class Main extends AppCompatActivity
     static int[][] order;
     StringBuilder ret = new StringBuilder();
     private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 1;
+    OrderDatabase db;
 
     public Main()
     {
@@ -46,10 +53,10 @@ public class Main extends AppCompatActivity
         int end_price = 0;
 
         int[] names = new int[]{
-            R.string.mac_pro,
-            R.string.magic_mouse,
-            R.string.magic_keyboard,
-            R.string.webcam
+                R.string.mac_pro,
+                R.string.magic_mouse,
+                R.string.magic_keyboard,
+                R.string.webcam
         };
 
         int i = 0;
@@ -60,20 +67,24 @@ public class Main extends AppCompatActivity
                 end_price += Integer.parseInt(s_amount) * prices.get(key);
 
                 ret.append(
-                        getResources().getString(names[i]))
+                                getResources().getString(names[i]))
                         .append(" = ")
-                            .append(Integer.parseInt(s_amount))
+                        .append(Integer.parseInt(s_amount))
                         .append(" * ")
-                            .append(prices.get(key))
+                        .append(prices.get(key))
                         .append(" = ")
-                            .append(Integer.parseInt(s_amount) * prices.get(key))
+                        .append(Integer.parseInt(s_amount) * prices.get(key))
                         .append("\n");
 
                 Log.i("tag", String.valueOf(ret));
             }
-
             i++;
         }
+
+        Log.i("DATABASE", String.valueOf(ret));
+        db.addData(String.valueOf(ret));
+
+        Toast.makeText(this, "Order added to cart", Toast.LENGTH_LONG).show();
     }
 
     private void setToolbar()
@@ -98,11 +109,11 @@ public class Main extends AppCompatActivity
         setContentView(R.layout.main);
         setToolbar();
 
+        db = new OrderDatabase(getApplicationContext());
+
         requestPermissions(new String[]{"android.permission.SEND_SMS"}, MY_PERMISSIONS_REQUEST_SEND_SMS);
 
-        findViewById(R.id.sumbit).setOnClickListener(e -> {
-            addOrder();
-        });
+        findViewById(R.id.sumbit).setOnClickListener(e -> addOrder());
     }
 
     @Override
@@ -119,7 +130,26 @@ public class Main extends AppCompatActivity
                 setToolbar();
 
                 if (item.getItemId() == R.id.order) {
-                    ((TextView) findViewById(R.id.order_inspector)).setText(ret);
+                    ArrayList<String> data = new ArrayList<>();
+
+                    @SuppressLint("Recycle") Cursor res = db.getReadableDatabase().query("ORDERS",
+                            OrderDatabase.cells, null, null, null, null, null);
+
+                    StringBuilder lst = new StringBuilder();
+
+                    while (res.moveToNext()) {
+                        data.add(res.getString(3));
+                    }
+
+                    Log.i("DATABASE", String.valueOf(data));
+
+                    for (String s : data) {
+                        lst.append(s);
+                        lst.append("------------------\n");
+                    }
+
+                    Log.i("DATABASE", String.valueOf(lst));
+                    ((TextView) findViewById(R.id.order_inspector)).setText(lst);
                 }
 
                 if (item.getItemId() == R.id.sms) {
