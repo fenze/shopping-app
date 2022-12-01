@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="background">#CDD6f4</color>
+    <color name="widget">#89b4fa</color>
 </resources>

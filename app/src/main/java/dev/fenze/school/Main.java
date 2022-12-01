@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -24,6 +25,7 @@ public class Main extends AppCompatActivity
     static int[][] order;
     StringBuilder ret = new StringBuilder();
     private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 1;
+    OrderDatabase db;
 
     public Main()
     {
@@ -71,9 +73,12 @@ public class Main extends AppCompatActivity
 
                 Log.i("tag", String.valueOf(ret));
             }
-
             i++;
         }
+
+        db.addData(String.valueOf(ret));
+
+        Toast.makeText(this, "Order added to cart", Toast.LENGTH_LONG).show();
     }
 
     private void setToolbar()
@@ -98,6 +103,8 @@ public class Main extends AppCompatActivity
         setContentView(R.layout.main);
         setToolbar();
 
+        db = new OrderDatabase(getApplicationContext());
+
         requestPermissions(new String[]{"android.permission.SEND_SMS"}, MY_PERMISSIONS_REQUEST_SEND_SMS);
 
         findViewById(R.id.sumbit).setOnClickListener(e -> {
@@ -119,7 +126,10 @@ public class Main extends AppCompatActivity
                 setToolbar();
 
                 if (item.getItemId() == R.id.order) {
-                    ((TextView) findViewById(R.id.order_inspector)).setText(ret);
+                    if (ret.length() == 0)
+                        ((TextView) findViewById(R.id.order_inspector)).setText("Basket is empty");
+                    else
+                        ((TextView) findViewById(R.id.order_inspector)).setText(ret);
                 }
 
                 if (item.getItemId() == R.id.sms) {
