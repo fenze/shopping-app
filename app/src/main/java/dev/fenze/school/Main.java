@@ -18,7 +18,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -52,6 +54,9 @@ public class Main extends AppCompatActivity
     {
         int end_price = 0;
 
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+
         int[] names = new int[]{
                 R.string.mac_pro,
                 R.string.magic_mouse,
@@ -66,8 +71,11 @@ public class Main extends AppCompatActivity
             if (s_amount.length() != 0) {
                 end_price += Integer.parseInt(s_amount) * prices.get(key);
 
+                ret.append(formatter.format(date))
+                    .append("\n");
+
                 ret.append(
-                                getResources().getString(names[i]))
+                        getResources().getString(names[i]))
                         .append(" = ")
                         .append(Integer.parseInt(s_amount))
                         .append(" * ")
